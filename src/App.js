@@ -7,6 +7,7 @@ import Profile from "./Components/Profile";
 import { useEffect, useState } from "react";
 import { auth } from "./Components/Firebase";
 import Editor from "./Components/Editor/Editor";
+import Provider from "./ContextProvider/Provider";
 
 function App() {
   const [user, setUser] = useState();
@@ -19,18 +20,20 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
-        <Routes>
-          <Route
-            path="/"
-            element={user ? <Navigate to="/profile" /> : <Login />}
-          ></Route>
-          <Route path="/Register" element={<Registration />}></Route>
-          <Route path="/profile" element={<Profile />}></Route>
-          <Route path="/Editor" element={<Editor/>}></Route>
-        </Routes>
-      </BrowserRouter>
-      <ToastContainer />
+      <Provider>
+        <BrowserRouter>
+          <Routes>
+            <Route
+              path="/"
+              element={user ? <Navigate to="/profile" /> : <Login />}
+            ></Route>
+            <Route path="/Register" element={<Registration />}></Route>
+            <Route path="/profile" element={<Profile />}></Route>
+            <Route path="/Editor" element={<Editor />}></Route>
+          </Routes>
+        </BrowserRouter>
+        <ToastContainer />
+      </Provider>
     </div>
   );
 }

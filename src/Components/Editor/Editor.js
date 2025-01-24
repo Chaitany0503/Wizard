@@ -6,6 +6,8 @@ export default function Editor() {
     <div className='container'>
       <div className="left-Container">
         <button>My Project</button>
+        <button>Create new Project</button>
+        
       </div>
       <Right_Component/>
     </div>
