@@ -1,8 +1,5 @@
-import { createUserWithEmailAndPassword } from "firebase/auth";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { auth, db } from "./Firebase";
-import { setDoc, doc } from "firebase/firestore";
 import { toast } from "react-toastify";
 import { Box, Button, Card, TextField, Typography, AppBar, Toolbar, Container } from "@mui/material";
 import { getUserName, Registor } from "../lib/api-wizard";

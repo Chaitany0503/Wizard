@@ -1,9 +1,6 @@
-import { signInWithEmailAndPassword } from "firebase/auth";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "./Firebase";
 import { toast } from "react-toastify";
-import SigninWithGoogle from "./SigninWithGoogle";
 import {
   Box,
   TextField,
@@ -143,8 +140,7 @@ export default function Login() {
               New User? <Link to={"/Register"}>Register</Link>
             </Typography>
 
-            {/* Google Sign-In */}
-            <SigninWithGoogle />
+            
           </CardContent>
         </Card>
       </Container>

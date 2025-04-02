@@ -14,9 +14,6 @@ function App() {
   const [login, setLogin] = useState(false);
 
   useEffect(() => {
-    // auth.onAuthStateChanged((user) => {
-    //   setUser(user);
-    // });
     const storedLogin = localStorage.getItem("username") !== "null";
     setLogin(storedLogin);
   }, []);
