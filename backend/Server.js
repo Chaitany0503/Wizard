@@ -2,11 +2,14 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const { exec } = require("child_process");
-// const http = require("http");
-// const socketIo = require("socket.io"); // ✅ Use socket.io, not socket.io-client
+const {connectToSocket} = require('./Controller/socketManager');
+// import connectToSocket from "./controllers/socketManager.js";
+const http = require("http");
+const socketIo = require("socket.io"); // ✅ Use socket.io, not socket.io-client
 
 const app = express();
-// const server = http.createServer(app);
+const server = http.createServer(app);
+const io = connectToSocket(server)
 // const io = socketIo(server, { cors: {
 //   origin: "http://localhost:5173",  // ✅ Make sure this matches your frontend
 //   methods: ["GET", "POST"],
