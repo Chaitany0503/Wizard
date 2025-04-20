@@ -48,6 +48,6 @@ app.use('/api/wizard', routes);
 const PORT = 4001;
 
 
-app.listen(PORT, () => {  // FIXED: Use `server.listen`
+server.listen(PORT, () => {  // FIXED: Use `server.listen`
   console.log(`Server running at http://localhost:${PORT}`);
 });

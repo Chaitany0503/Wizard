@@ -18,6 +18,7 @@
     "@mui/x-data-grid": "^7.27.3",
     "axios": "^1.8.2",
     "firebase": "^11.4.0",
+    "nanoid": "^5.1.5",
     "peer": "^1.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

@@ -45,3 +45,7 @@ export const AiCode = (data) =>{
     console.log("Data : ",data);
     return axios.post(`${WIZARD_BASE_PATH}/ai`,data);
 }
+// export const Socket_Server = (data) =>{
+//     console.log("Data : ",data);
+//     return axios.post(`${WIZARD_BASE_PATH}/socket`,data);
+// }

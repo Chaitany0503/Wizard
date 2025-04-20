@@ -1,8 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { v4 } from "uuid";
 import { Box, Button, Card, CardContent, Typography, AppBar, Toolbar, Container, TextField } from "@mui/material";
-
+import { customAlphabet } from 'nanoid';
 export default function Profile() {
   const [userDetail, setUserDetail] = useState(null);
   const [meetingId,setMeetingId]  = useState("");
@@ -10,12 +9,14 @@ export default function Profile() {
 
   const login = localStorage.getItem("login");
   const username = localStorage.getItem("username");
-
+  const alphabet = 'abcdefghijklmnopqrstuvwxyz';
+  const nanoid = customAlphabet(alphabet, 3); // 3-letter parts
   const handleLogOut = async () => {
-    try {
-      navigate("/");
-      localStorage.setItem("login", false);
+    try {localStorage.setItem("login", false);
       localStorage.setItem("username", null);
+      navigate("/");
+      // localStorage.setItem("login", false);
+      // localStorage.setItem("username", null);
       
     } catch (error) {
       console.error("Logout Error:", error.message);
@@ -25,8 +26,11 @@ export default function Profile() {
   const handleJoinMeet = () => {
     navigate(`/videocall/${meetingId}`)
   }
+  const generateMeetingCode = () => {
+    return `${nanoid()}-${nanoid()}-${nanoid()}`;
+  };
   const handleNewJoinMeet = () => {
-    const newMeetingId = v4();
+    const newMeetingId = generateMeetingCode();
     navigate(`/videocall/${newMeetingId}`)
   }
 

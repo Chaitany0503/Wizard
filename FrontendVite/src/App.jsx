@@ -8,8 +8,7 @@ import { useEffect, useState } from "react";
 import EditCode from "./Components/Editor/EditCode";
 import CodeEditor from "./Components/Editor/CodeEditor";
 import Files from "./Components/Editor/Files";
-import VideoCall from "./Components/Meet/VideoCall";
-
+import VideoMeet from "./Components/Meet/VideoMeet";
 function App() {
   const [login, setLogin] = useState(false);
 
@@ -26,14 +25,15 @@ function App() {
           <Routes>
             <Route
               path="/"
-              element={login ? <Navigate to="/profile" /> : <Login />}
+              element ={<Login/>}
+              // element={login ? <Navigate to="/profile" /> : <Login />}
             ></Route>
             <Route path="/Register" element={<Registration />}></Route>
             <Route path="/profile" element={<Profile />}></Route>
             <Route path="/Editor" element={<CodeEditor />}></Route>
             <Route path="/editcode" element={<EditCode />}></Route>
             <Route path="/file" element={<Files />}></Route>
-            <Route path="/videocall/:roomId" element={<VideoCall />}></Route>
+            <Route path="/videocall/:roomId" element={<VideoMeet />}></Route>
           </Routes>
         </BrowserRouter>
         <ToastContainer />

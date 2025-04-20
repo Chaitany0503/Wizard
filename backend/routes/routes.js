@@ -1,4 +1,5 @@
 const wizardController = require('../Controller/wizardController');
+const socketManager = require('../Controller/socketManager');
 
 const router = require('express').Router();
 
@@ -14,5 +15,4 @@ router.post("/ai",wizardController.AiCode);
 router.post("/registor",wizardController.registor);
 router.post("/login",wizardController.login);
 router.get("/getusername",wizardController.getUserName);
-
 module.exports=router;;
