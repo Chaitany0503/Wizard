@@ -1,168 +1,168 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
-import {
-  Box,
-  TextField,
-  Typography,
-  Button,
-  Card,
-  CardContent,
-  AppBar,
-  Toolbar,
-  Container,
-  Alert,
-  Snackbar,
-} from "@mui/material";
-import { login } from "../lib/api-wizard";
+// import React, { useState } from "react";
+// import { Link, useNavigate } from "react-router-dom";
+// import { toast } from "react-toastify";
+// import {
+//   Box,
+//   TextField,
+//   Typography,
+//   Button,
+//   Card,
+//   CardContent,
+//   AppBar,
+//   Toolbar,
+//   Container,
+//   Alert,
+//   Snackbar,
+// } from "@mui/material";
+// import { login } from "../lib/api-wizard";
 
-export default function Login() {
-  const [username, setUsername] = useState("");
-  const [open,setOpen] = useState(false);
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+// export default function Login() {
+//   const [username, setUsername] = useState("");
+//   const [open,setOpen] = useState(false);
+//   const [password, setPassword] = useState("");
+//   const [error, setError] = useState("");
+//   const navigate = useNavigate();
 
-  const handleSubmit = async () => {
-    if (!username || !password) {
-      setError("Please fill all fields.");
-      return;
-    }
-    try {
-      const response = await login({ username, password });
-      if (response.data.success) {
-        // console.log("Response:", response.data);
-        const username = response.data.result.username;
-        const uid = response.data.result.id;
+//   const handleSubmit = async () => {
+//     if (!username || !password) {
+//       setError("Please fill all fields.");
+//       return;
+//     }
+//     try {
+//       const response = await login({ username, password });
+//       if (response.data.success) {
+//         // console.log("Response:", response.data);
+//         const username = response.data.result.username;
+//         const uid = response.data.result.id;
 
-        // toast.success("User Login Successful", { position: "top-center" });
-        toast.success("User Login Successful", {
-          position: "top-center",
-          style: {
-            fontSize: "0.75rem", // Small text
-            padding: "6px 12px", // Compact size
-            minWidth: "200px", // Ensures smaller width
-          },
-          className: "custom-toast", // Custom class for more styling
-        });
-        localStorage.setItem("login", true);
-        localStorage.setItem("username", username);
-        localStorage.setItem("uid", uid);
-        // setOpen(true);
-        navigate("/profile");
-      } else {
-        setError(response.data.message);
-      }
-    } catch (error) {
-      // console.log(error.message);
-      toast.error("User not found", { position: "top-center" });
-    }
-  };
+//         // toast.success("User Login Successful", { position: "top-center" });
+//         toast.success("User Login Successful", {
+//           position: "top-center",
+//           style: {
+//             fontSize: "0.75rem", // Small text
+//             padding: "6px 12px", // Compact size
+//             minWidth: "200px", // Ensures smaller width
+//           },
+//           className: "custom-toast", // Custom class for more styling
+//         });
+//         localStorage.setItem("login", true);
+//         localStorage.setItem("username", username);
+//         localStorage.setItem("uid", uid);
+//         // setOpen(true);
+//         navigate("/profile");
+//       } else {
+//         setError(response.data.message);
+//       }
+//     } catch (error) {
+//       // console.log(error.message);
+//       toast.error("User not found", { position: "top-center" });
+//     }
+//   };
 
-  return (
-    <Box sx={{ bgcolor: "whitesmoke", minHeight: "100vh" }}>
-      {/* AppBar Header */}
-      <AppBar position="static" sx={{ bgcolor: "#2E3B55", boxShadow: 3 }}>
-        <Toolbar>
-          <Typography
-            variant="h6"
-            sx={{ fontWeight: "bold", color: "white", flexGrow: 1 }}
-          >
-            Login to Your Account
-          </Typography>
-        </Toolbar>
-      </AppBar>
+//   return (
+//     <Box sx={{ bgcolor: "whitesmoke", minHeight: "100vh" }}>
+//       {/* AppBar Header */}
+//       <AppBar position="static" sx={{ bgcolor: "#2E3B55", boxShadow: 3 }}>
+//         <Toolbar>
+//           <Typography
+//             variant="h6"
+//             sx={{ fontWeight: "bold", color: "white", flexGrow: 1 }}
+//           >
+//             Login to Your Account
+//           </Typography>
+//         </Toolbar>
+//       </AppBar>
 
-      {/* Main Content */}
-      <Container
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          height: "85vh",
-        }}
-      >
-        <Card sx={{ width: 380, p: 4, borderRadius: 3, boxShadow: 5 }}>
-          <CardContent
-            sx={{ display: "flex", flexDirection: "column", gap: 2 }}
-          >
-            <Typography
-              variant="h5"
-              sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}
-            >
-              Login
-            </Typography>
+//       {/* Main Content */}
+//       <Container
+//         sx={{
+//           display: "flex",
+//           justifyContent: "center",
+//           alignItems: "center",
+//           height: "85vh",
+//         }}
+//       >
+//         <Card sx={{ width: 380, p: 4, borderRadius: 3, boxShadow: 5 }}>
+//           <CardContent
+//             sx={{ display: "flex", flexDirection: "column", gap: 2 }}
+//           >
+//             <Typography
+//               variant="h5"
+//               sx={{ fontWeight: "bold", textAlign: "center", mb: 2 }}
+//             >
+//               Login
+//             </Typography>
 
-            {/* Username Field */}
-            <TextField
-              fullWidth
-              size="small"
-              type="text"
-              label="Username"
-              value={username}
-              onChange={(e) => setUsername(e.target.value)}
-              sx={{ mb: 1 }}
-            />
+//             {/* Username Field */}
+//             <TextField
+//               fullWidth
+//               size="small"
+//               type="text"
+//               label="Username"
+//               value={username}
+//               onChange={(e) => setUsername(e.target.value)}
+//               sx={{ mb: 1 }}
+//             />
 
-            {/* Password Field */}
-            <TextField
-              fullWidth
-              size="small"
-              type="password"
-              label="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-            />
+//             {/* Password Field */}
+//             <TextField
+//               fullWidth
+//               size="small"
+//               type="password"
+//               label="Password"
+//               value={password}
+//               onChange={(e) => setPassword(e.target.value)}
+//             />
 
-            {/* Error Message */}
-            {error && (
-              <Typography
-                color="error"
-                sx={{ mt: 1, textAlign: "center", fontSize: "0.9rem" }}
-              >
-                {error}
-              </Typography>
-            )}
+//             {/* Error Message */}
+//             {error && (
+//               <Typography
+//                 color="error"
+//                 sx={{ mt: 1, textAlign: "center", fontSize: "0.9rem" }}
+//               >
+//                 {error}
+//               </Typography>
+//             )}
 
-            {/* Login Button */}
-            <Button
-              variant="contained"
-              fullWidth
-              color="success"
-              onClick={handleSubmit}
-              sx={{ mt: 2 }}
-            >
-              Login
-            </Button>
+//             {/* Login Button */}
+//             <Button
+//               variant="contained"
+//               fullWidth
+//               color="success"
+//               onClick={handleSubmit}
+//               sx={{ mt: 2 }}
+//             >
+//               Login
+//             </Button>
 
-            {/* Register Link */}
-            <Typography sx={{ textAlign: "center", mt: 2 }}>
-              New User? <Link to={"/Register"}>Register</Link>
-            </Typography>
+//             {/* Register Link */}
+//             <Typography sx={{ textAlign: "center", mt: 2 }}>
+//               New User? <Link to={"/Register"}>Register</Link>
+//             </Typography>
 
             
-          </CardContent>
-        </Card>
-      </Container>
-      <Snackbar
-        open={open}
-        autoHideDuration={3000} // Closes after 3 seconds
-        onClose={() => setOpen(false)}
-        anchorOrigin={{ vertical: "top", horizontal: "center" }} // Position
-      >
-        <Alert
-          onClose={() => setOpen(false)}
-          severity="success"
-          variant="filled" // Filled background
-          sx={{ fontSize: "0.75rem", padding: "4px 12px", minWidth: "200px" }}
-        >
-          User Login Successfully...!
-        </Alert>
-      </Snackbar>
+//           </CardContent>
+//         </Card>
+//       </Container>
+//       <Snackbar
+//         open={open}
+//         autoHideDuration={3000} // Closes after 3 seconds
+//         onClose={() => setOpen(false)}
+//         anchorOrigin={{ vertical: "top", horizontal: "center" }} // Position
+//       >
+//         <Alert
+//           onClose={() => setOpen(false)}
+//           severity="success"
+//           variant="filled" // Filled background
+//           sx={{ fontSize: "0.75rem", padding: "4px 12px", minWidth: "200px" }}
+//         >
+//           User Login Successfully...!
+//         </Alert>
+//       </Snackbar>
       
-    </Box>
-  );
-}
+//     </Box>
+//   );
+// }
 
 
 // // 2nd code
@@ -560,3 +560,292 @@ export default function Login() {
 //     </Box>
 //   );
 // }
+
+//3rd code 
+
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import {
+  Box,
+  TextField,
+  Typography,
+  Button,
+  Card,
+  CardContent,
+  AppBar,
+  Toolbar,
+  Container,
+  Alert,
+  Snackbar,
+  CssBaseline,
+} from "@mui/material";
+import { login } from "../lib/api-wizard";
+
+export default function Login() {
+  const [username, setUsername] = useState("");
+  const [open, setOpen] = useState(false);
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+
+  const handleSubmit = async () => {
+    if (!username || !password) {
+      setError("Please fill all fields.");
+      return;
+    }
+    
+    setIsLoading(true);
+    try {
+      const response = await login({ username, password });
+      if (response.data.success) {
+        const { username: responseUsername, id: uid } = response.data.result;
+        
+        toast.success("User Login Successful", {
+          position: "top-center",
+          style: {
+            fontSize: "0.75rem",
+            padding: "6px 12px",
+            minWidth: "200px",
+            backgroundColor: "#43989b",
+            color: "#fff",
+          },
+        });
+        
+        localStorage.setItem("login", true);
+        localStorage.setItem("username", responseUsername);
+        localStorage.setItem("uid", uid);
+        navigate("/profile");
+      } else {
+        setError(response.data.message);
+      }
+    } catch (error) {
+      toast.error("User not found", { 
+        position: "top-center",
+        style: {
+          backgroundColor: "#f44336",
+          color: "#fff",
+        }
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <>
+      <CssBaseline />
+      <Box sx={{ 
+        bgcolor: "#f5f5f5", 
+        minHeight: "100vh",
+        display: "flex",
+        flexDirection: "column",
+      }}>
+        {/* AppBar Header */}
+        <AppBar 
+          position="static" 
+          sx={{ 
+            bgcolor: "black", 
+            boxShadow: 3,
+            mb: 4
+          }}
+        >
+          <Toolbar>
+            <Typography
+              variant="h6"
+              sx={{ 
+                fontWeight: "bold", 
+                color: "#8fcccf", 
+                flexGrow: 1,
+                fontFamily: "'Roboto', sans-serif",
+                letterSpacing: 1
+              }}
+            >
+              Code Wizard
+            </Typography>
+          </Toolbar>
+        </AppBar>
+
+        {/* Main Content */}
+        <Container
+          maxWidth="xs"
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            flexGrow: 1,
+            py: 4,
+          }}
+        >
+          <Card sx={{ 
+            width: "100%", 
+            maxWidth: 400,
+            borderRadius: 2, 
+            boxShadow: "0 8px 16px rgba(0, 0, 0, 0.1)",
+            overflow: "hidden",
+          }}>
+            <Box sx={{
+              bgcolor: "#60b9bc",
+              height: 5,
+              width: "100%",
+            }} />
+            
+            <CardContent sx={{ 
+              p: 4,
+              display: "flex", 
+              flexDirection: "column", 
+              gap: 3 
+            }}>
+              <Typography
+                variant="h5"
+                sx={{ 
+                  fontWeight: 600, 
+                  textAlign: "center", 
+                  mb: 1,
+                  color: "black",
+                  fontFamily: "'Roboto', sans-serif",
+                }}
+              >
+                Welcome Back
+              </Typography>
+              
+              <Typography
+                variant="body2"
+                sx={{ 
+                  textAlign: "center", 
+                  mb: 3,
+                  color: "text.secondary",
+                }}
+              >
+                Sign in to continue to Code Wizard
+              </Typography>
+
+              {/* Username Field */}
+              <TextField
+                fullWidth
+                size="small"
+                type="text"
+                label="Username"
+                variant="outlined"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setError("");
+                }}
+                sx={{ mb: 2 }}
+                InputProps={{
+                  sx: {
+                    borderRadius: 1,
+                  }
+                }}
+              />
+
+              {/* Password Field */}
+              <TextField
+                fullWidth
+                size="small"
+                type="password"
+                label="Password"
+                variant="outlined"
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                  setError("");
+                }}
+                InputProps={{
+                  sx: {
+                    borderRadius: 1,
+                  }
+                }}
+                onKeyPress={(e) => e.key === 'Enter' && handleSubmit()}
+              />
+
+              {/* Error Message */}
+              {error && (
+                <Alert 
+                  severity="error" 
+                  sx={{ 
+                    mt: 1,
+                    fontSize: "0.75rem",
+                    py: 0.5,
+                  }}
+                >
+                  {error}
+                </Alert>
+              )}
+
+              {/* Login Button */}
+              <Button
+                variant="contained"
+                fullWidth
+                onClick={handleSubmit}
+                disabled={isLoading}
+                sx={{ 
+                  mt: 2,
+                  py: 1.5,
+                  borderRadius: 1,
+                  bgcolor: "#43989b",
+                  "&:hover": {
+                    bgcolor: "#60b9bc",
+                  },
+                  fontWeight: 600,
+                  textTransform: "none",
+                  fontSize: "1rem",
+                }}
+              >
+                {isLoading ? "Signing In..." : "Sign In"}
+              </Button>
+
+              {/* Register Link */}
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  textAlign: "center", 
+                  mt: 2,
+                  color: "text.secondary",
+                }}
+              >
+                Don't have an account?{" "}
+                <Link 
+                  to="/Register" 
+                  style={{ 
+                    color: "#43989b",
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    "&:hover": {
+                      textDecoration: "underline",
+                    }
+                  }}
+                >
+                  Create one
+                </Link>
+              </Typography>
+            </CardContent>
+          </Card>
+        </Container>
+        
+        <Snackbar
+          open={open}
+          autoHideDuration={3000}
+          onClose={() => setOpen(false)}
+          anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        >
+          <Alert
+            onClose={() => setOpen(false)}
+            severity="success"
+            variant="filled"
+            sx={{ 
+              fontSize: "0.75rem", 
+              padding: "4px 12px", 
+              minWidth: "200px",
+              bgcolor: "#43989b",
+            }}
+          >
+            User Login Successfully...!
+          </Alert>
+        </Snackbar>
+      </Box>
+    </>
+  );
+}

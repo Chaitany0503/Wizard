@@ -31,9 +31,12 @@ import ContentCopyIcon from "@mui/icons-material/ContentCopy";
 import styles from "../styles/videoComponent.module.css";
 import "./VideoMeet.css"; // Import the new CSS file
 // import server from "../enviornment";
-
 // Global Settings
+// local
 const server_url = "http://localhost:4001";
+// Production
+// const server_url = "https://wizard-api.rdsoft.in.net/";
+
 const peerConfigConnections = {
   iceServers: [{ urls: "stun:stun.l.google.com:19302" }],
 };
@@ -405,12 +408,12 @@ export default function VideoMeet() {
       // Handle new users joining
       socketRef.current.on("user-joined", (joinedUser, { clients, clientsUsernames }) => {
         const { id, username } = joinedUser;
-        if (id !== socketIdRef.current) {
-            toast.success(`${username} joined the meeting`, {
-              position: "top-right",
-              autoClose: 3000,
-            });
-          }
+        // if (id !== socketIdRef.current) {
+        //     toast.success(`${username} joined the meeting`, {
+        //       position: "top-right",
+        //       autoClose: 3000,
+        //     });
+        //   }
         clients.forEach((socketListId) => {
           // ✅ Save each user's username for their socket ID
           remoteUsernameMap[socketListId] = clientsUsernames[socketListId];
@@ -873,167 +876,143 @@ const handleEndCall = () => {
   }
 
   return (
-    <div className="video-meet-container">
-      {/*     Video Grid */}
-      {/* <div className="video-grid"> */}
-      {/* Local Video */}
-      {/* <div 
-        //             className={`video-container ${
-        //                 videos.length === 0 ? "col-span-full" : ""
-        //             }`}
-        //         >
-        //             <video ref={localVideoref} autoPlay muted></video>
-        //         </div>
-
-        //         {/* Remote Videos */}
-      {/* {videos.map((video) => ( */}
-      {/* //             <div key={video.socketId} className="video-container">
-        //                 <video
-        //                     data-socket={video.socketId}
-        //                     ref={(ref) => {
-        //                         if (ref && video.stream) {
-        //                             ref.srcObject = video.stream;
-        //                         }
-        //                     }}
-        //                     autoPlay
-        //                 ></video>
-        //             </div>
-        //         ))}
-        //     </div>*/}
-
-      {videos.length > 0 && (
-        <div className="remote-grid">
-          {videos.map((video) => (
-            <div key={video.socketId} className="remote-video">
-              <video
-                data-socket={video.socketId}
-                ref={(ref) => {
-                  if (ref && video.stream) {
-                    ref.srcObject = video.stream;
-                  }
-                }}
-                autoPlay
-              ></video>
-              <div className="username-overlay">{video.username}</div>
-            </div>
-          ))}
+<div className="meet-app">
+  {/* Video Grid */}
+  <div className="video-section">
+    <div className="video-grid">
+      {/* Remote videos */}
+      {videos.map((video) => (
+        <div key={video.socketId} className="video-tile">
+          <video
+            data-socket={video.socketId}
+            ref={(ref) => {
+              if (ref && video.stream) {
+                ref.srcObject = video.stream;
+              }
+            }}
+            autoPlay
+          />
+          <div className="overlay-username">{video.username}</div>
         </div>
-      )}
+      ))}
 
       {/* Local video */}
       <div
-        className={`local-video ${
-          videos.length === 0 ? "full-screen" : "small-corner"
+        className={`video-tile local ${
+          videos.length === 0 ? "full" : "corner"
         }`}
       >
-        <video ref={localVideoref} autoPlay muted></video>
-        <div className="username-overlay">{username}</div>
+        <video ref={localVideoref} autoPlay muted />
+        <div className="overlay-username">{username}</div>
       </div>
-
-      {/* Controls */}
-      <div className="controls-container">
-        <span></span>
-        <Tooltip title="Copy meeting Code">
-          <button onClick={copyMeetingLink} className="control-button">
-            <ContentCopyIcon />
-          </button>
-        </Tooltip>
-
-        <button
-          onClick={handleVideo}
-          className={`control-button ${video ? "active" : ""}`}
-        >
-          {video ? <VideocamIcon /> : <VideocamOffIcon />}
-        </button>
-
-        <button onClick={handleEndCall} className="control-button danger">
-          <CallEndIcon />
-        </button>
-
-        <button
-          onClick={handleAudio}
-          className={`control-button ${audio ? "active" : ""}`}
-        >
-          {audio ? <MicIcon /> : <MicOffIcon />}
-        </button>
-
-        {screenAvailable && (
-          <Tooltip title="Share Screen">
-            <button
-              onClick={handleScreen}
-              className={`control-button ${screen ? "active" : ""}`}
-            >
-              {screen ? <ScreenShareIcon /> : <StopScreenShareIcon />}
-            </button>
-          </Tooltip>
-        )}
-
-        <button
-          onClick={() => setModal(!showModal)}
-          className="control-button relative"
-        >
-          <ChatIcon />
-          {newMessages > 0 && (
-            <span className="new-message-badge">{newMessages}</span>
-          )}
-        </button>
-      </div>
-
-      {/* Chat Panel */}
-      {showModal && (
-        <div className={styles.chatRoom}>
-          <div className={styles.chatContainer}>
-            <h3>Chat</h3>
-            <div className={styles.chattingDisplay} ref={chatDisplayRef}>
-              {messages.length > 0 ? (
-                messages.map((msg, index) => (
-                  <div
-                    key={index}
-                    className={`${styles.messageItem} ${
-                      msg.type === socketIdRef.current
-                        ? styles.myMessage
-                        : msg.type === "system"
-                        ? styles.systemMessage
-                        : styles.otherMessage
-                    }`}
-                  >
-                    <div className={styles.messageSender}>{msg.sender}</div>
-                    <div className={styles.messageContent}>
-                      <span className={styles.messageText}>{msg.data}</span>
-                      {msg.timestamp && (
-                        <span className={styles.messageTime}>
-                          {formatTime(msg.timestamp)}
-                        </span>
-                      )}
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p className={styles.noMessages}>No messages yet</p>
-              )}
-            </div>
-            <div className={styles.chattingArea}>
-              <TextField
-                value={message}
-                onChange={(e) => setMessage(e.target.value)}
-                placeholder="Type a message..."
-                variant="outlined"
-                fullWidth
-                onKeyPress={(e) => e.key === "Enter" && sendMessage()}
-              />
-              <IconButton onClick={sendMessage} color="primary">
-                <SendIcon />
-              </IconButton>
-            </div>
-          </div>
-        </div>
-      )}
-      <Snackbar open={!!leftUser} autoHideDuration={3000}>
-  <Alert severity="info" sx={{ width: "100%" }}>
-    {leftUser}
-  </Alert>
-</Snackbar>
-
     </div>
+  </div>
+
+  {/* Bottom Controls */}
+  <div className="bottom-controls">
+    <Tooltip title="Copy Meeting Link">
+      <button onClick={copyMeetingLink} className="control-btn">
+        <ContentCopyIcon />
+      </button>
+    </Tooltip>
+
+    <button
+      onClick={handleVideo}
+      className={`control-btn ${video ? "active" : ""}`}
+    >
+      {video ? <VideocamIcon /> : <VideocamOffIcon />}
+    </button>
+
+    <button onClick={handleEndCall} className="control-btn danger">
+      <CallEndIcon />
+    </button>
+
+    <button
+      onClick={handleAudio}
+      className={`control-btn ${audio ? "active" : ""}`}
+    >
+      {audio ? <MicIcon /> : <MicOffIcon />}
+    </button>
+
+    {screenAvailable && (
+      <Tooltip title="Share Screen">
+        <button
+          onClick={handleScreen}
+          className={`control-btn ${screen ? "active" : ""}`}
+        >
+          {screen ? <ScreenShareIcon /> : <StopScreenShareIcon />}
+        </button>
+      </Tooltip>
+    )}
+
+    <button
+      onClick={() => setModal(!showModal)}
+      className="control-btn relative"
+    >
+      <ChatIcon />
+      {newMessages > 0 && (
+        <span className="chat-badge">{newMessages}</span>
+      )}
+    </button>
+  </div>
+
+  {/* Chat Panel */}
+  {showModal && (
+    <div className="chat-panel">
+      <div className="chat-content">
+        <h3>Chat</h3>
+        <div className="chat-messages" ref={chatDisplayRef}>
+          {messages.length > 0 ? (
+            messages.map((msg, index) => (
+              <div
+                key={index}
+                className={`message-item ${
+                  msg.type === socketIdRef.current
+                    ? "my-msg"
+                    : msg.type === "system"
+                    ? "sys-msg"
+                    : "other-msg"
+                }`}
+              >
+                <div className="sender">{msg.sender}</div>
+                <div className="content">
+                  <span>{msg.data}</span>
+                  {msg.timestamp && (
+                    <span className="timestamp">
+                      {formatTime(msg.timestamp)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p className="no-msg">No messages yet</p>
+          )}
+        </div>
+        <div className="chat-input">
+          <TextField
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            placeholder="Type a message..."
+            variant="outlined"
+            fullWidth
+            onKeyPress={(e) => e.key === "Enter" && sendMessage()}
+          />
+          <IconButton onClick={sendMessage} color="primary">
+            <SendIcon />
+          </IconButton>
+        </div>
+      </div>
+    </div>
+  )}
+
+  {/* Snackbar for user left */}
+  <Snackbar open={!!leftUser} autoHideDuration={3000}>
+    <Alert severity="info" sx={{ width: "100%" }}>
+      {leftUser}
+    </Alert>
+  </Snackbar>
+</div>
+
   );
 }

@@ -9,6 +9,8 @@ import EditCode from "./Components/Editor/EditCode";
 import CodeEditor from "./Components/Editor/CodeEditor";
 import Files from "./Components/Editor/Files";
 import VideoMeet from "./Components/Meet/VideoMeet";
+import MeetHome from "./Components/Meet/MeetHome";
+import MainPage from "./Components/MainPage";
 function App() {
   const [login, setLogin] = useState(false);
 
@@ -23,8 +25,9 @@ function App() {
       {/* <Provider> */}
         <BrowserRouter>
           <Routes>
+            <Route path="/" element={<MainPage/>}></Route>
             <Route
-              path="/"
+              path="/login"
               element ={<Login/>}
               // element={login ? <Navigate to="/profile" /> : <Login />}
             ></Route>
@@ -33,6 +36,7 @@ function App() {
             <Route path="/Editor" element={<CodeEditor />}></Route>
             <Route path="/editcode" element={<EditCode />}></Route>
             <Route path="/file" element={<Files />}></Route>
+            <Route path="/meetHome" element={<MeetHome />}></Route>
             <Route path="/videocall/:roomId" element={<VideoMeet />}></Route>
           </Routes>
         </BrowserRouter>

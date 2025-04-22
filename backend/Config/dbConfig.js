@@ -7,16 +7,12 @@ db = mysql.createConnection({
     password:'Mysql@0503',
     database:'wizard'
 
-    // cloud database
-//     host:'16.171.112.35',
-//    user:'wizard',
-//     password:'wizard@2025#',
-//     database:'wizard'
 
-//     Production database
+    // Production database
 //     host:'localhost',
+//     port:3306,
 //    user:'wizard',
-//     password:'wizard@2025#',
+//     password:'SemmSZtby66KXMAe',
 //     database:'wizard'
     
 });

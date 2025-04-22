@@ -44,9 +44,13 @@ app.use(bodyParser.json());
 
 const routes = require('./routes/routes');
 app.use('/api/wizard', routes);
-
+app.get('/checkserver',(req,res)=>{
+  res.status(200).send("Server is Working....!");
+});
+// local
 const PORT = 4001;
-
+// production
+// const PORT = 4500;
 
 server.listen(PORT, () => {  // FIXED: Use `server.listen`
   console.log(`Server running at http://localhost:${PORT}`);
